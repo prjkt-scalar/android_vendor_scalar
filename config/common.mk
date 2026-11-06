@@ -2,3 +2,5 @@
 # SPDX-License-Identifier: Apache-2.0
 
 include vendor/scalar/config/version.mk
+
+MALLOC_SCUDO_TSDS_MAX := true
