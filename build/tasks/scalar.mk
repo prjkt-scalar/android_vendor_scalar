@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 The Scalar Project
+# SPDX-License-Identifier: Apache-2.0
+
+SCALAR_TARGET_PACKAGE := $(PRODUCT_OUT)/Scalar-$(SCALAR_VERSION).zip
+SCALAR_SHA256 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/sha256sum
+
+$(SCALAR_TARGET_PACKAGE): $(INTERNAL_OTA_PACKAGE_TARGET)
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(SCALAR_TARGET_PACKAGE)
+	$(hide) $(SCALAR_SHA256) $(SCALAR_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(SCALAR_TARGET_PACKAGE).sha256sum
+	@echo "Package Complete: $(SCALAR_TARGET_PACKAGE)" >&2
+
+.PHONY: scalar
+scalar: $(SCALAR_TARGET_PACKAGE) $(DEFAULT_GOAL)
